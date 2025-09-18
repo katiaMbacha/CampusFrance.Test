@@ -4,8 +4,6 @@ using CampusFrance.Test.DataManagement;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;  
-using System.IO; 
 
 namespace CampusFrance.Test.Tests
 {
@@ -41,48 +39,36 @@ namespace CampusFrance.Test.Tests
         // --------- Méthode unique : communs + spécifiques Institutionnel ----------
         private void RemplirInstitutionnelComplet(InstitutionData d)
         {
-            //  Champs communs (email, mdp, identité, pays, tel, nationalité, etc.)
+            // Champs communs (email, mdp, identité, pays, tel, nationalité, etc.)
             FillCommonFields(d);
 
-
-            //  “Vous êtes : Institutionnel”
+            // “Vous êtes : Institutionnel”
             var instFor = Driver.FindElement(By.XPath("//fieldset[.//legend[contains(normalize-space(.),'Vous êtes')]]//label[normalize-space(.)='Institutionnel']")).GetAttribute("for");
             var instRadio = Driver.FindElement(By.Id(instFor));
             if (!instRadio.Selected) instRadio.SendKeys(Keys.Space);
 
-            //  Fonction (input texte)
+            // Fonction
             var fonctionInput = Driver.FindElement(By.Id("edit-field-fonction-0-value"));
             fonctionInput.SendKeys(d.Function);
 
-            // Type d'organisme (Selectize) — focus direct sur l'input caché
+            // Type d'organisme (Selectize)
             var typeFor = Driver.FindElement(By.XPath("//label[contains(normalize-space(.),\"Type d'organisme\")]")).GetAttribute("for");
-            // ex: "edit-field-type-organisme-selectized"
             ((IJavaScriptExecutor)Driver).ExecuteScript("document.getElementById(arguments[0]).focus();", typeFor);
             Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
             Driver.SwitchTo().ActiveElement().SendKeys(d.OrganizationType + Keys.Enter);
 
-
-            // Nom de l'organisme (input texte)
+            // Nom de l'organisme
             var orgNameInput = Driver.FindElement(By.Id("edit-field-nom-organisme-0-value"));
             orgNameInput.SendKeys(d.OrganizationName);
 
-            
-
-
-            
-
-
-
-            // --- Assertions + log NDJSON minimal (Institutionnel) ---
+            // --- Assertions ---
             var emailVal = Driver.FindElement(By.XPath("//label[normalize-space(.)='Mon adresse e-mail']/following::input[1]"))
                                 .GetAttribute("value") ?? "";
 
-            // Type d’organisme (Selectize) 
             var typeSelectId = (typeFor ?? "edit-field-type-organisme-selectized").Replace("-selectized", "");
             var orgTypeText  = Driver.FindElement(By.CssSelector("#" + typeSelectId + " + .selectize-control .selectize-input .item"))
                                     .Text ?? "";
 
-            // Checks
             bool okEmail = emailVal == d.Email;
             bool okRadio = instRadio.Selected;
             bool okType  = orgTypeText == d.OrganizationType;
@@ -90,35 +76,28 @@ namespace CampusFrance.Test.Tests
             TestContext.WriteLine($"[Vous êtes] Institutionnel sélectionné={instRadio.Selected}");
             TestContext.WriteLine($"[Type organisme] lu='{orgTypeText}' attendu='{d.OrganizationType}'");
 
-            // NDJSON: un objet JSON par ligne, append dans Data/resultatsTests.json
-            var resultsPath = Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory, "..","..","..","Data","resultatsTests.json"));
+            // --- Log JSON via ResultWriter ---
             void Log(string check, string expected, string actual, bool passed)
             {
-                var line = System.Text.Json.JsonSerializer.Serialize(new {
+                ResultWriter.Append(new {
                     test = TestContext.CurrentContext.Test.Name,
                     category = "Institutions",
                     check, expected, actual, passed,
                     ts = DateTime.UtcNow.ToString("o")
                 });
-                File.AppendAllText(resultsPath, line + Environment.NewLine);
             }
 
-            // 3 lignes NDJSON
             Log("Email", d.Email, emailVal, okEmail);
             Log("Vous êtes", "Institutionnel", instRadio.Selected.ToString(), okRadio);
             Log("Type d'organisme", d.OrganizationType, orgTypeText, okType);
 
-            // Asserts
+            // --- Asserts ---
             Assert.Multiple(() =>
             {
                 Assert.That(okEmail, $"[Email] attendu='{d.Email}' obtenu='{emailVal}'");
                 Assert.That(okRadio, "[Vous êtes] 'Institutionnel' devrait être sélectionné");
                 Assert.That(okType,  $"[Type organisme] attendu='{d.OrganizationType}' obtenu='{orgTypeText}'");
             });
-
-
-
-
         }
     }
 }

@@ -4,8 +4,6 @@ using CampusFrance.Test.DataManagement;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;   
-using System.IO; 
 
 namespace CampusFrance.Test.Tests
 {
@@ -67,11 +65,7 @@ namespace CampusFrance.Test.Tests
             Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
             Driver.SwitchTo().ActiveElement().SendKeys(d.StudyLevel + Keys.Enter);
 
-
-
-
-
-                        // --- Assertions ---
+            // --- Assertions ---
             var emailVal = Driver.FindElement(By.XPath("//label[normalize-space(.)='Mon adresse e-mail']/following::input[1]")).GetAttribute("value");
             var chFor = Driver.FindElement(By.XPath("//fieldset[.//legend[contains(.,'Vous êtes')]]//label[normalize-space(.)='Chercheurs']")).GetAttribute("for")!;
             var chRadio = Driver.FindElement(By.Id(chFor));
@@ -84,35 +78,28 @@ namespace CampusFrance.Test.Tests
             TestContext.WriteLine($"[Vous êtes] Chercheurs sélectionné={chRadio.Selected}");
             TestContext.WriteLine($"[Niveau] lu='{levelText}' attendu='{d.StudyLevel}'");
 
-            //  un objet JSON par ligne, append dans Data/resultatsTests.json
-            var resultsPath = Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory, "..","..","..","Data","resultatsTests.json"));
+            // --- Log JSON via ResultWriter ---
             void Log(string check, string expected, string actual, bool passed)
             {
-                var line = JsonSerializer.Serialize(new {
+                ResultWriter.Append(new {
                     test = TestContext.CurrentContext.Test.Name,
                     category = "Researchers",
                     check, expected, actual, passed,
                     ts = DateTime.UtcNow.ToString("o")
                 });
-                File.AppendAllText(resultsPath, line + Environment.NewLine);
             }
 
-            // 3 lignes NDJSON
             Log("Email", d.Email, emailVal, okEmail);
             Log("Vous êtes", "Chercheurs", chRadio.Selected.ToString(), okRadio);
             Log("Niveau d'étude", d.StudyLevel, levelText, okLevel);
 
-            // Asserts
+            // --- Asserts ---
             Assert.Multiple(() =>
             {
                 Assert.That(okEmail, $"[Email] attendu='{d.Email}' obtenu='{emailVal}'");
                 Assert.That(okRadio, "[Vous êtes] 'Chercheurs' devrait être sélectionné");
                 Assert.That(okLevel, $"[Niveau] attendu='{d.StudyLevel}' obtenu='{levelText}'");
             });
-
-
-
-
         }
     }
 }

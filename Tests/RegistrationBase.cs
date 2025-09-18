@@ -22,10 +22,7 @@ namespace CampusFrance.Test.Tests
 
             if (!_resultsCleared)
             {
-                var path = Path.GetFullPath(Path.Combine(
-                    TestContext.CurrentContext.TestDirectory, "..", "..", "..", "Data", "resultatsTests.json"
-                ));
-                File.WriteAllText(path, string.Empty); // si tu utilises .json -> File.WriteAllText(path, "[]");
+                ResultWriter.Clear("resultatsTests.json");
                 _resultsCleared = true;
             }
             //Driver = new ChromeDriver();

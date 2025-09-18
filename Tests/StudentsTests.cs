@@ -4,8 +4,6 @@ using CampusFrance.Test.DataManagement;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
-using System.Collections.Generic;
 
 namespace CampusFrance.Test.Tests
 {
@@ -49,7 +47,6 @@ namespace CampusFrance.Test.Tests
             if (closes.Count > 0 && closes[0].Displayed && closes[0].Enabled)
                 closes[0].Click();
 
-
             // 3) “Vous êtes : Étudiants”
             var etu = Driver.FindElement(By.Id("edit-field-publics-cibles-2"));
             if (!etu.Selected) etu.SendKeys(Keys.Space);
@@ -67,9 +64,6 @@ namespace CampusFrance.Test.Tests
             Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
             Driver.SwitchTo().ActiveElement().SendKeys(d.StudyLevel + Keys.Enter);
 
-
-
-
             // --- Assertions ---
             var emailVal = Driver.FindElement(By.XPath("//label[normalize-space(.)='Mon adresse e-mail']/following::input[1]")).GetAttribute("value");
             var domText = Driver.FindElement(By.CssSelector("#edit-field-domaine-etudes + .selectize-control .selectize-input .item")).Text;
@@ -81,34 +75,28 @@ namespace CampusFrance.Test.Tests
             TestContext.WriteLine($"[Vous êtes] Étudiants sélectionné={etu.Selected}");
             TestContext.WriteLine($"[Domaine] lu='{domText}' attendu='{d.StudyField}'");
 
-            // un objet JSON par ligne dans Data/resultatsTests.json
-            var resultsPath = Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory, "..","..","..","Data","resultatsTests.json"));
+            // --- Log JSON via ResultWriter ---
             void Log(string check, string expected, string actual, bool passed)
             {
-                var line = JsonSerializer.Serialize(new {
+                ResultWriter.Append(new {
                     test = TestContext.CurrentContext.Test.Name,
-                    category = "Students", // "Researchers" / "Institutions" selon le fichier
+                    category = "Students",
                     check, expected, actual, passed,
                     ts = DateTime.UtcNow.ToString("o")
                 });
-                File.AppendAllText(resultsPath, line + Environment.NewLine);
             }
 
-            // 3 lignes NDJSON
             Log("Email", d.Email, emailVal, okEmail);
             Log("Vous êtes", "Étudiants", etu.Selected.ToString(), okRadio);
             Log("Domaine d'études", d.StudyField, domText, okDom);
 
-            // Asserts
+            // --- Asserts ---
             Assert.Multiple(() =>
             {
                 Assert.That(okEmail, $"[Email] attendu='{d.Email}' obtenu='{emailVal}'");
                 Assert.That(okRadio, "[Vous êtes] 'Étudiants' devrait être sélectionné");
                 Assert.That(okDom,   $"[Domaine] attendu='{d.StudyField}' obtenu='{domText}'");
             });
-
-
-            
         }
     }
 }
