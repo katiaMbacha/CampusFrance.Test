@@ -16,6 +16,11 @@ namespace CampusFrance.Test.Tests
         protected const string RegisterUrl = "https://www.campusfrance.org/fr/user/register";
         private static bool _resultsCleared = false;
 
+        protected WebDriverWait Wait(int seconds = 5)
+        {
+            return new WebDriverWait(Driver, TimeSpan.FromSeconds(seconds));
+        }
+
         [SetUp]
         public void Setup()
         {
