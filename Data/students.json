@@ -1,0 +1,35 @@
+[
+    {
+      "civility": "Mr",
+      "lastName": "Ben",
+      "firstName": "Ali",
+      "email": "ali.ben+testA@gmail.com",
+      "password": "Pwd!23456",
+      "passwordConfirm": "Pwd!23456",
+      "countryResidence": "Maroc",
+      "nationality": "Maroc",
+      "postalCode": "20000",
+      "city": "Casablanca",
+      "phone": "+212600000001",
+      "acceptComms": true,
+      "studyField": "Informatique",
+      "studyLevel": "Licence 1"
+    },
+    {
+      "civility": "Mme",
+      "lastName": "taibi",
+      "firstName": "Sara",
+      "email": "sara.khan+testB@gmail.com",
+      "password": "Pwd!23456",
+      "passwordConfirm": "Pwd!23456",
+      "countryResidence": "Tunisie",
+      "nationality": "Tunisie",
+      "postalCode": "1000",
+      "city": "Tunis",
+      "phone": "+21620000001",
+      "acceptComms": true,
+      "studyField": "Chimie",
+      "studyLevel": "Master 2"
+    }
+  ]
+  

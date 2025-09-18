@@ -1,0 +1,37 @@
+[
+    {
+      "civility": "Mr",
+      "lastName": "Lefevre",
+      "firstName": "Paul",
+      "email": "paul.lefevre+instA@example.com",
+      "password": "Pwd!23456",
+      "passwordConfirm": "Pwd!23456",
+      "countryResidence": "France",
+      "nationality": "France",
+      "postalCode": "75001",
+      "city": "Paris",
+      "phone": "+33123456780",
+      "acceptComms": true,
+      "function": "Responsable partenariats",
+      "organizationType": "Etablissement-Université-Ecole",
+      "organizationName": "Université de Paris"
+    },
+    {
+      "civility": "Mme",
+      "lastName": "Schmidt",
+      "firstName": "Laura",
+      "email": "laura.schmidt+instB@example.com",
+      "password": "Pwd!23456",
+      "passwordConfirm": "Pwd!23456",
+      "countryResidence": "Allemagne",
+      "nationality": "Allemagne",
+      "postalCode": "10115",
+      "city": "Berlin",
+      "phone": "+49301234560",
+      "acceptComms": true,
+      "function": "Directrice R&D",
+      "organizationType": "Entreprise",
+      "organizationName": "Techno GmbH"
+    }
+  ]
+  

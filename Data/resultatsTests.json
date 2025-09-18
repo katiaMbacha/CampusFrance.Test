@@ -1,0 +1,18 @@
+{"test":"RemplissageInstitutionEntreprise","category":"Institutions","check":"Email","expected":"laura.schmidt\u002BinstB@example.com","actual":"laura.schmidt\u002BinstB@example.com","passed":true,"ts":"2025-09-18T07:36:54.5733320Z"}
+{"test":"RemplissageInstitutionEntreprise","category":"Institutions","check":"Vous \u00EAtes","expected":"Institutionnel","actual":"True","passed":true,"ts":"2025-09-18T07:36:54.5841770Z"}
+{"test":"RemplissageInstitutionEntreprise","category":"Institutions","check":"Type d\u0027organisme","expected":"Entreprise","actual":"Entreprise","passed":true,"ts":"2025-09-18T07:36:54.5844760Z"}
+{"test":"RemplissageInstitutionUniversite","category":"Institutions","check":"Email","expected":"paul.lefevre\u002BinstA@example.com","actual":"paul.lefevre\u002BinstA@example.com","passed":true,"ts":"2025-09-18T07:37:11.5265530Z"}
+{"test":"RemplissageInstitutionUniversite","category":"Institutions","check":"Vous \u00EAtes","expected":"Institutionnel","actual":"True","passed":true,"ts":"2025-09-18T07:37:11.5296360Z"}
+{"test":"RemplissageInstitutionUniversite","category":"Institutions","check":"Type d\u0027organisme","expected":"Etablissement-Universit\u00E9-Ecole","actual":"Etablissement-Universit\u00E9-Ecole","passed":true,"ts":"2025-09-18T07:37:11.5298850Z"}
+{"test":"RemplissageChercheurChimie","category":"Researchers","check":"Email","expected":"anna.mueller\u002BresearchB@example.com","actual":"anna.mueller\u002BresearchB@example.com","passed":true,"ts":"2025-09-18T07:37:25.8387430Z"}
+{"test":"RemplissageChercheurChimie","category":"Researchers","check":"Vous \u00EAtes","expected":"Chercheurs","actual":"True","passed":true,"ts":"2025-09-18T07:37:25.8413250Z"}
+{"test":"RemplissageChercheurChimie","category":"Researchers","check":"Niveau d\u0027\u00E9tude","expected":"Post-doctorat","actual":"Post-doctorat","passed":true,"ts":"2025-09-18T07:37:25.8415840Z"}
+{"test":"RemplissageChercheurInformatique","category":"Researchers","check":"Email","expected":"jean.dupont\u002BresearchA@example.com","actual":"jean.dupont\u002BresearchA@example.com","passed":true,"ts":"2025-09-18T07:37:41.3061920Z"}
+{"test":"RemplissageChercheurInformatique","category":"Researchers","check":"Vous \u00EAtes","expected":"Chercheurs","actual":"True","passed":true,"ts":"2025-09-18T07:37:41.3084560Z"}
+{"test":"RemplissageChercheurInformatique","category":"Researchers","check":"Niveau d\u0027\u00E9tude","expected":"Post-doctorat","actual":"Post-doctorat","passed":true,"ts":"2025-09-18T07:37:41.3086750Z"}
+{"test":"RemplissageEtudiantChimie","category":"Students","check":"Email","expected":"sara.khan\u002BtestB@gmail.com","actual":"sara.khan\u002BtestB@gmail.com","passed":true,"ts":"2025-09-18T07:37:56.4965660Z"}
+{"test":"RemplissageEtudiantChimie","category":"Students","check":"Vous \u00EAtes","expected":"\u00C9tudiants","actual":"True","passed":true,"ts":"2025-09-18T07:37:56.4999600Z"}
+{"test":"RemplissageEtudiantChimie","category":"Students","check":"Domaine d\u0027\u00E9tudes","expected":"Chimie","actual":"Chimie","passed":true,"ts":"2025-09-18T07:37:56.5001800Z"}
+{"test":"RemplissageEtudiantInformatique","category":"Students","check":"Email","expected":"ali.ben\u002BtestA@gmail.com","actual":"ali.ben\u002BtestA@gmail.com","passed":true,"ts":"2025-09-18T07:38:11.8934220Z"}
+{"test":"RemplissageEtudiantInformatique","category":"Students","check":"Vous \u00EAtes","expected":"\u00C9tudiants","actual":"True","passed":true,"ts":"2025-09-18T07:38:11.8974080Z"}
+{"test":"RemplissageEtudiantInformatique","category":"Students","check":"Domaine d\u0027\u00E9tudes","expected":"Informatique","actual":"Informatique","passed":true,"ts":"2025-09-18T07:38:11.8976340Z"}

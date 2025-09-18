@@ -1,0 +1,35 @@
+[
+    {
+      "civility": "Mr",
+      "lastName": "Dupont",
+      "firstName": "Jean",
+      "email": "jean.dupont+researchA@example.com",
+      "password": "Pwd!23456",
+      "passwordConfirm": "Pwd!23456",
+      "countryResidence": "France",
+      "nationality": "France",
+      "postalCode": "75001",
+      "city": "Paris",
+      "phone": "+33123456789",
+      "acceptComms": true,
+      "studyField": "Informatique",
+      "studyLevel": "Post-doctorat"
+    },
+    {
+      "civility": "Mme",
+      "lastName": "Mueller",
+      "firstName": "Anna",
+      "email": "anna.mueller+researchB@example.com",
+      "password": "Pwd!23456",
+      "passwordConfirm": "Pwd!23456",
+      "countryResidence": "Allemagne",
+      "nationality": "Allemagne",
+      "postalCode": "10115",
+      "city": "Berlin",
+      "phone": "+49301234567",
+      "acceptComms": true,
+      "studyField": "Chimie",
+      "studyLevel": "Post-doctorat"
+    }
+  ]
+  
