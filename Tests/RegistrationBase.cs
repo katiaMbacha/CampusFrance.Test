@@ -17,7 +17,7 @@ namespace CampusFrance.Test.Tests
         private static bool _resultsCleared = false;
 
         [SetUp]
-        public void Setup()
+        /*public void Setup()
         {
 
             if (!_resultsCleared)
@@ -27,6 +27,26 @@ namespace CampusFrance.Test.Tests
             }
             //Driver = new ChromeDriver();
             Driver = new FirefoxDriver();
+        }*/
+
+        public void Setup()
+        {
+            if (!_resultsCleared) { ResultWriter.Clear("resultatsTests.json"); _resultsCleared = true; }
+        
+            var headless = (Environment.GetEnvironmentVariable("HEADLESS") ?? "0") == "1";
+            if (headless)
+            {
+                var opt = new ChromeOptions();
+                opt.AddArgument("--headless=new");
+                opt.AddArgument("--no-sandbox");
+                opt.AddArgument("--disable-dev-shm-usage");
+                opt.AddArgument("--window-size=1366,900"); // important pour éviter les overlaps
+                Driver = new ChromeDriver(opt);
+            }
+            else
+            {
+                Driver = new ChromeDriver(); // tu peux remettre Firefox en local si tu veux
+            }
         }
 
         [TearDown]
