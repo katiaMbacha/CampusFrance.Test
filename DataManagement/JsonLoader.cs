@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text.Json;
 
@@ -7,17 +8,26 @@ namespace CampusFrance.Test.DataManagement
     {
         private static readonly JsonSerializerOptions Options = new()
         {
-            PropertyNameCaseInsensitive = true,   // insensible à la casse
+            PropertyNameCaseInsensitive = true,
             ReadCommentHandling = JsonCommentHandling.Skip,
-            AllowTrailingCommas = true            // permet les virgules finales
+            AllowTrailingCommas = true
         };
 
-        /// <summary>
-        /// Charge un tableau d’objets T à partir d’un fichier JSON.
-        /// Exemple : var data = JsonLoader.LoadArray<StudentData>("Data/students.json");
-        /// </summary>
         public static T[] LoadArray<T>(string path)
         {
+            // Si DATA_DIR est défini (CI), on remappe les chemins relatifs "Data/xxx.json"
+            var dataDir = Environment.GetEnvironmentVariable("DATA_DIR");
+            if (!string.IsNullOrWhiteSpace(dataDir) && !Path.IsPathRooted(path))
+            {
+                // normalise pour attraper "Data/...":
+                var norm = path.Replace('\\', '/');
+                if (norm.StartsWith("Data/", StringComparison.OrdinalIgnoreCase))
+                    norm = norm.Substring("Data/".Length);
+
+                // reconstruit dans ${DATA_DIR}
+                path = Path.Combine(dataDir, norm);
+            }
+
             var json = File.ReadAllText(path);
             return JsonSerializer.Deserialize<T[]>(json, Options) ?? [];
         }
