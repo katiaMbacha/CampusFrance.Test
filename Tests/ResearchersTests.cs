@@ -59,7 +59,8 @@ namespace CampusFrance.Test.Tests
             Driver.SwitchTo().ActiveElement().SendKeys(d.StudyField + Keys.Enter);
 
             // 5) Niveau(x) d'étude (Selectize)
-            var levelBox = Driver.FindElement(By.CssSelector("#edit-field-niveaux-etude + .selectize-control .selectize-input"));
+            //var levelBox = Driver.FindElement(By.CssSelector("#edit-field-niveaux-etude + .selectize-control .selectize-input"));
+            var levelBox = Wait(Driver).Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("#edit-field-niveaux-etude + .selectize-control .selectize-input")));
             ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView({block:'center'});", levelBox);
             levelBox.Click();
             Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
