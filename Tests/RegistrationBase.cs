@@ -17,7 +17,7 @@ namespace CampusFrance.Test.Tests
         private static bool _resultsCleared = false;
 
         [SetUp]
-        /*public void Setup()
+        public void Setup()
         {
 
             if (!_resultsCleared)
@@ -27,8 +27,8 @@ namespace CampusFrance.Test.Tests
             }
             //Driver = new ChromeDriver();
             Driver = new FirefoxDriver();
-        }*/
-
+        }
+/*
         public void Setup()
         {
             if (!_resultsCleared) { ResultWriter.Clear("resultatsTests.json"); _resultsCleared = true; }
@@ -48,6 +48,7 @@ namespace CampusFrance.Test.Tests
                 Driver = new ChromeDriver(); // tu peux remettre Firefox en local si tu veux
             }
         }
+*/
 
         [TearDown]
         public void TearDown()
