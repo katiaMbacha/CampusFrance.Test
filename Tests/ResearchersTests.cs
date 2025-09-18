@@ -53,7 +53,7 @@ namespace CampusFrance.Test.Tests
             if (!chercheurRadio.Selected) chercheurRadio.SendKeys(Keys.Space);
 
             // 4) Domaine d'études (Selectize)
-            var domBox = Driver.FindElement(By.CssSelector("#edit-field-domaine-etudes + .selectize-control .selectize-input"));
+            var domBox = Wait().Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("#edit-field-domaine-etudes + .selectize-control .selectize-input")));
             domBox.Click();
             Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
             Driver.SwitchTo().ActiveElement().SendKeys(d.StudyField + Keys.Enter);
