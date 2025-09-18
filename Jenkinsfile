@@ -31,8 +31,7 @@ pipeline {
       }
       post {
         always {
-          // Si le plugin MSTest n'est pas installé, commente cette ligne ou installe-le.
-          mstest testResultsFilePattern: 'TestResults/*.trx', keepLongStdio: true, failOnError: false
+          // On archive juste les résultats et éventuels artefacts (screenshots, logs…)
           archiveArtifacts artifacts: 'TestResults/**/*, **/Screenshots/**/*, **/logs/**/*', onlyIfSuccessful: false
         }
       }
