@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'mac' } // ou le label de ton agent
+  agent any
   options { timestamps() }
   environment {
     DOTNET_CLI_TELEMETRY_OPTOUT='1'
