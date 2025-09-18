@@ -2,7 +2,7 @@ pipeline {
   agent any
   options { timestamps() }
   environment {
-    // 👉 rends dotnet visible pour le process Jenkins
+    // rends dotnet visible pour le process Jenkins
     PATH = "/usr/local/share/dotnet:/usr/local/bin:${PATH}"
     DOTNET_ROOT = "/usr/local/share/dotnet"
 
