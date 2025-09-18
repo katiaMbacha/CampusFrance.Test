@@ -1,11 +1,11 @@
 pipeline {
-  agent { label 'mac' } 
-  options { timestamps(); ansiColor('xterm') }
+  agent { label 'mac' } // ou le label de ton agent
+  options { timestamps() }
   environment {
     DOTNET_CLI_TELEMETRY_OPTOUT='1'
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1'
     HEADLESS='1'
-    DATA_DIR = "${WORKSPACE}/Data"   // dossier Data dans le repo
+    DATA_DIR = "${WORKSPACE}/Data"
   }
   stages {
     stage('Checkout'){ steps { checkout scm } }
@@ -18,14 +18,8 @@ pipeline {
       }
     }
 
-    stage('Restore'){
-      steps { sh 'dotnet restore CampusFrance.Test.csproj' }
-    }
-
-    stage('Build'){
-      steps { sh 'dotnet build CampusFrance.Test.csproj --configuration Release --no-restore' }
-    }
-
+    stage('Restore'){ steps { sh 'dotnet restore CampusFrance.Test.csproj' } }
+    stage('Build'){ steps { sh 'dotnet build CampusFrance.Test.csproj --configuration Release --no-restore' } }
     stage('Test'){
       steps {
         sh '''
@@ -37,7 +31,7 @@ pipeline {
       }
       post {
         always {
-          // Publie les .trx et artefacts (screenshots/logs si tu en génères)
+          // Si le plugin MSTest n'est pas installé, commente cette ligne ou installe-le.
           mstest testResultsFilePattern: 'TestResults/*.trx', keepLongStdio: true, failOnError: false
           archiveArtifacts artifacts: 'TestResults/**/*, **/Screenshots/**/*, **/logs/**/*', onlyIfSuccessful: false
         }
