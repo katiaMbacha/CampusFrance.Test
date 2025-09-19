@@ -60,10 +60,20 @@ namespace CampusFrance.Test.Tests
 
             // 5) Niveau(x) d'étude (Selectize)
             var levelBox = Driver.FindElement(By.CssSelector("#edit-field-niveaux-etude + .selectize-control .selectize-input"));
-            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView({block:'center'});", levelBox);
-            levelBox.Click();
-            Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
-            Driver.SwitchTo().ActiveElement().SendKeys(d.StudyLevel + Keys.Enter);
+            //((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView({block:'center'});", levelBox);
+            try
+            {
+                levelBox.Click();
+                Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
+                Driver.SwitchTo().ActiveElement().SendKeys(d.StudyLevel + Keys.Enter);
+            }
+            catch
+            {
+                // si ça rate, on retente une deuxième fois
+                levelBox.Click();
+                Driver.SwitchTo().ActiveElement().SendKeys(Keys.Backspace);
+                Driver.SwitchTo().ActiveElement().SendKeys(d.StudyLevel + Keys.Enter);
+            }
 
             // --- Assertions ---
             var emailVal = Driver.FindElement(By.XPath("//label[normalize-space(.)='Mon adresse e-mail']/following::input[1]")).GetAttribute("value");
